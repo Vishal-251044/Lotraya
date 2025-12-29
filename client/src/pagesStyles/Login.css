@@ -1,0 +1,135 @@
+.login-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;     
+  background-position: center;  
+  background-repeat: no-repeat; 
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 350px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  text-align: center;
+  color: #1e1e1e;
+}
+
+.login-form input {
+  width: 93%;
+  padding: 10px; 
+  margin: 8px 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px; 
+  transition: all 0.2s ease; 
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.password-field {
+    width: 100% !important;
+}
+
+.login-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+.login-form input:focus {
+  border-color: #4cafef;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 6px #4cafef, 0 0 12px rgba(76, 175, 239, 0.6);
+  transform: scale(1.01); 
+}
+
+.password-field {
+  position: relative;
+  width: 93%;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #000000;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-position: right center;
+}
+
+.google-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #444;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin: 12px auto;   
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  width: 50%;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.link {
+  color: #000000;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    min-height: 100vh;
+    min-width: 100vw;
+    background-size: cover;        
+    background-position: center;  
+    background-repeat: no-repeat;  
+  }
+
+  .login-box {
+    width: 80%;
+    padding: 20px;
+    margin: 0 10px;   
+  }
+
+  .google-login {
+    font-size: 14px;   
+    padding: 10px;
+  }
+}
