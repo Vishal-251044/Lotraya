@@ -46,7 +46,7 @@ function PricingModal({ onClose, user, setPlan }) {
 
     script.onload = async () => {
       const options = {
-        key: "rzp_test_oB6Z965by3wM4n",
+        key: "rzp_test_SAV5YlU6Yyoefc",
         amount: amount,
         currency: "INR",
         name: "Lotraya",
