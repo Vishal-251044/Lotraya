@@ -110,6 +110,10 @@ const Login = () => {
         className="login-container"
         style={{ backgroundImage: `url(${bgImage})` }}
       >
+        <button className="back-home-btn" onClick={() => navigate("/")}>
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
+
         <div className="login-box">
           <h2>{isLogin ? "Login" : "Register"}</h2>
 

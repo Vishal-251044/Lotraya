@@ -12,8 +12,8 @@ function Footer() {
           {/* Logo + Contact */}
           <div className="footer-section">
             <div className="logo-footer">Lotraya</div>
-            <p>Join Us: <a href="#">vsc251044@gmail.com</a></p>
-            <p>Contact Us: <a href="#">+91 8010045390</a></p>
+            <p>Join Us: <a href="#">lotrayasupport@gmail.com</a></p>
+            <p>Contact Us: <a href="#">+91 9999999999</a></p>
           </div>
 
           {/* Features */}

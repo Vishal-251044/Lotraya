@@ -226,3 +226,26 @@ body.is-brave .modal-container {
     min-width: 45%;
   }
 }
+
+@media (max-width: 768px) {
+  .modal-container {
+    height: 85%;
+    padding: 12px;
+    margin: 10px;
+  }
+
+  /* override the browser-specific bottom padding on mobile */
+  body.is-chrome .modal-container,
+  body.is-brave .modal-container {
+    padding-bottom: 40px !important;
+  }
+
+  .plan-card {
+    min-width: 90%;
+    max-width: 95%;
+  }
+
+  .credit-card {
+    min-width: 45%;
+  }
+}

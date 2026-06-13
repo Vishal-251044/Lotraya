@@ -13,12 +13,14 @@
 
 .image-track {
   display: flex;
-  animation: scroll 15s linear infinite;
+  width: max-content;
+  animation: scroll 30s linear infinite;
 }
 
 .image-track img {
   width: 200px;
   height: 280px;
+  flex-shrink: 0;
   object-fit: cover;
   border-radius: 12px;
   margin: 0 10px;

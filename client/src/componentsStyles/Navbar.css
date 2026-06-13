@@ -1,12 +1,29 @@
+/* ============================================================
+   Navbar.css — responsive, theme preserved
+   Scoped box-sizing so we don't affect the rest of the app.
+   ============================================================ */
+
+.navbar,
+.navbar *,
+.user-dropdown,
+.user-dropdown *,
+.edit-modal,
+.edit-modal * {
+  box-sizing: border-box;
+}
+
+/* ===== Navbar bar =====
+   Keep `absolute` if the nav should scroll away with the page.
+   Switch to `fixed` if you want it pinned to the top while scrolling. */
 .navbar {
   position: absolute;
   top: 10px;
   left: 5px;
   right: 5px;
-  width: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   padding: 12px 20px;
   border-radius: 8px;
   z-index: 1000;
@@ -24,16 +41,20 @@
   margin: 0 !important;
   background: linear-gradient(90deg, #fb00ff, #0058c3);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
+  flex-shrink: 0; /* don't let the logo get squeezed on small screens */
   transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 20px;
+  min-width: 0; /* allows children to shrink/ellipsis instead of overflowing */
 }
 
 .nav-btn-login {
@@ -44,22 +65,31 @@
   border-radius: 6px;
   font-weight: bold;
   font-size: 15px;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: 0.3s;
 }
 
 .nav-btn-pricing {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  border: none;
   background: #ffe6c3;
-  cursor: pointer;
-  border-radius: 20px;
   border: 1px solid #ff7811;
+  border-radius: 20px;
   font-weight: bold;
   font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: 0;
+  max-width: 200px; /* keeps a long "Pro | 9999 coins" label from blowing up the bar */
   transition: 0.3s ease;
+}
+
+.nav-btn-pricing span {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-btn-pricing:hover {
@@ -70,33 +100,14 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
-@media screen and (max-width: 768px) {
-  .navbar {
-    left: 0;
-    right: 0;
-  }
-
-  .logo-nav {
-    font-size: 22px;
-    letter-spacing: 1.5px;
-  }
-
-  .nav-links {
-    gap: 8px;
-  }
-
-  .nav-btn-login,
-  .nav-btn-pricing {
-    font-size: 14px;
-    padding: 3px 8px;
-  }
-}
-
+/* ===== User avatar + dropdown ===== */
 .user-avatar-wrapper {
   position: relative;
   display: inline-block;
+  flex-shrink: 0;
   cursor: pointer;
 }
 
@@ -129,6 +140,7 @@
   box-shadow: 0 4px 12px rgba(255, 0, 127, 0.5);
   padding: 12px;
   width: 300px;
+  max-width: calc(100vw - 24px); /* never wider than the viewport */
   z-index: 100;
   border-radius: 10px;
   color: #fff;
@@ -139,9 +151,8 @@
   margin-bottom: 12px;
   font-size: 14px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-direction: column;
+  align-items: flex-start;
   gap: 5px;
 }
 
@@ -152,22 +163,26 @@
   width: 100%;
 }
 
-.edit-icon {
-  cursor: pointer;
-  color: #ff007f;
-  font-size: 16px;
-  transition: color 0.2s ease;
-}
-
-.edit-icon:hover {
-  color: #ff4da6;
-}
-
-.user-actions button.logout-btn {
+.user-info span {
+  display: block;
+  white-space: nowrap;        /* required for the ellipsis to kick in */
+  overflow: hidden;
+  text-overflow: ellipsis;
   width: 100%;
-  background: linear-gradient(90deg, #d40080, #ff007f);
+}
+
+.user-actions {
+  display: flex;
+  gap: 8px;                    /* Edit + Logout sit on one line */
+}
+
+.user-actions button {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   border: none;
-  text-align: center;
   padding: 8px 0;
   cursor: pointer;
   font-size: 14px;
@@ -177,28 +192,37 @@
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.user-actions button.logout-btn:hover {
-  background: linear-gradient(90deg, #ff007f, #d40080);
+/* Edit uses the login button's gradient */
+.user-actions .edit-btn {
+  background: linear-gradient(90deg, #d600cc, #00d1e4);
+}
+
+.user-actions .logout-btn {
+  background: linear-gradient(90deg, #d40080, #ff007f);
+}
+
+.user-actions button:hover {
   transform: scale(1.02);
 }
 
+/* ===== Edit modal ===== */
 .edit-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 16px; /* keeps the card off the screen edges on phones */
   z-index: 200;
 }
 
 .modal-content {
   background-color: #1a1a1a;
   padding: 20px;
-  width: 350px;
+  width: min(350px, 100%); /* responsive instead of a fixed px width */
+  max-height: 90vh;
+  overflow-y: auto; /* scroll if it ever gets taller than the screen */
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -209,17 +233,16 @@
 }
 
 .modal-content h2 {
-  margin: 0;
+  margin: 0 0 10px;
   text-align: center;
   font-size: 25px;
-  margin-bottom: 10px;
 }
 
 .input-field-edit {
+  width: 100%; /* with border-box this no longer overflows */
   padding: 10px;
   border: 1px solid #ff007f;
   border-radius: 8px;
-  width: 95%;
   background-color: #111;
   color: #fff;
   font-weight: bold;
@@ -234,6 +257,7 @@
 .modal-buttons {
   display: flex;
   justify-content: space-between;
+  gap: 8px;
   margin-top: 10px;
 }
 
@@ -246,12 +270,18 @@
   cursor: pointer;
   font-weight: bold;
   flex: 1;
-  margin-right: 8px;
   transition: transform 0.2s ease;
 }
 
 .primary-button:hover {
   transform: scale(1.05);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .secondary-button {
@@ -272,12 +302,103 @@
   transform: scale(1.05);
 }
 
+/* ============================================================
+   Responsive breakpoints
+   ============================================================ */
+
+/* Tablets / large phones */
 @media (max-width: 768px) {
-  .user-dropdown {
-    width: 250px;
+  .navbar {
+    left: 0;
+    right: 0;
+    padding: 10px 14px;
+    border-radius: 0;
   }
 
-  .modal-content {
-    width: 280px;
+  .logo-nav {
+    font-size: 22px;
+    letter-spacing: 1.5px;
+  }
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  /* Keep touch targets comfortable (was 3px 8px — too small to tap) */
+  .nav-btn-login,
+  .nav-btn-pricing {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .user-dropdown {
+    width: 260px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .logo-nav {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .nav-links {
+    gap: 8px;
+  }
+
+  .nav-btn-pricing {
+    padding: 7px 10px;
+    font-size: 12px;
+    gap: 6px;
+    max-width: 130px;
+  }
+
+  .nav-btn-login {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+
+  .pricing-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .user-avatar-circle {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+
+  .user-dropdown {
+    width: 240px;
+    top: 46px;
+  }
+
+  .modal-content h2 {
+    font-size: 21px;
+  }
+}
+
+/* ===== Quality-of-life: accessibility ===== */
+.nav-btn-login:focus-visible,
+.nav-btn-pricing:focus-visible,
+.user-avatar-circle:focus-visible,
+.logout-btn:focus-visible,
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.input-field-edit:focus-visible {
+  outline: 2px solid #ff4da6;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }

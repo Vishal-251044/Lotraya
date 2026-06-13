@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 function Navbar() {
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [plan, setPlan] = useState(null); 
+  const [plan, setPlan] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({ name: "", password: "" });
@@ -118,13 +118,13 @@ function Navbar() {
               {isDropdownOpen && (
                 <div className="user-dropdown">
                   <div className="user-info">
-                    <span><b>Name: </b>{user.name}</span>
-                    <span><b>Email: </b>{user.email}</span>
-                    <div>
-                      <FaEdit className="edit-icon" onClick={handleEditClick} />
-                    </div>
+                    <span title={user.name}><b>Name: </b>{user.name}</span>
+                    <span title={user.email}><b>Email: </b>{user.email}</span>
                   </div>
                   <div className="user-actions">
+                    <button className="edit-btn" onClick={handleEditClick}>
+                      <FaEdit /> Edit
+                    </button>
                     <button className="logout-btn" onClick={handleLogout}>
                       <i className="fa-solid fa-right-from-bracket"></i> Logout
                     </button>
